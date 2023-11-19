@@ -1,55 +1,48 @@
 import java.util.*;
 
 class Solution {
-    public boolean wordPattern(String pattern, String s) {
+    public static List<String> summaryRanges(int[] nums) {
+        List<String> result = new ArrayList<>();
+        if(nums.length > 0){
+            for(int i=0; i<nums.length; i++){
+                
+                String current = Integer.toString(nums[i]);                
+                
 
-        
-
-
-        String[] words = s.split(" ");
-        HashMap<Character, String> map = new HashMap<>();
-        ArrayList<Character> patternLetters = new ArrayList<>();
-
-        //check if words and pattern is same length
-        if(words.length!= pattern.length()){
-            return false;
-        }
-
-        //get unique letters
-        for(int i=0; i<pattern.length(); i++){
-            if(! patternLetters.contains(pattern.charAt(i))){
-                patternLetters.add(pattern.charAt(i));
-            }
-        }
-
-
-        // construct map
-        int current = 0;
-        for (String word: words){
-            if(! map.containsValue(word)){
-                if(current >= patternLetters.size()){
-                    return false;
+                if( ((i+1)<nums.length) && ((nums[i]+1) == nums[i+1]) ){
+                    
+                    // continuous
+                    current = current+"->";
+                    for(int j = i+1; j<nums.length; j++){
+                        
+                        if(nums[j]!=nums[j-1]+1){
+                            // continuous 
+                            current = current+ Integer.toString(nums[j-1]);
+                            i = j-1;
+                            result.add(current);
+                            break;
+                        }
+                    }
+                    if(current.charAt(current.length()-1) == '>'){
+                        current = current+ Integer.toString(nums[nums.length-1]);
+                        result.add(current);
+                        break;
+                    }
+                }else{
+                    
+                    // end single case or discontinuous
+                    result.add(current);
                 }
-                map.put(patternLetters.get(current), word);
-                current++;
             }
         }
-
-        
-
-        for(int i=0; i<pattern.length(); i++){
-            if(map.get(pattern.charAt(i)) == null){
-                return false;
-            }
-            if(! map.get(pattern.charAt(i)).equals(words[i])){
-                return false;
-            }
-        }
-        return true; 
+        return result;
     }
 
     public static void main(String[] args){
-        Solution s = new Solution();
-        System.out.println(s.wordPattern("abba", "dog cat cat dog"));
+
+        int[] nums2 = {0,1,2,4,5,7};
+        System.out.println(summaryRanges(nums2));
+        int[] nums3 = {0,2,3,4,6,8,9};
+        System.out.println(summaryRanges(nums3));
     }
 }
