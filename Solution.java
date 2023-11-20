@@ -1,35 +1,55 @@
 import java.util.*;
 
+public class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+  
+ 
 class Solution {
-    public static boolean isValid(String s) {
+    
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode result_tracker;
 
-        //check odd
-        if(s.length()%2 != 0){
-            return false;
+        if(list1 ==null){
+            return list2;
+        }else if(list2== null){
+            return list1;
         }
 
-        Stack<Character> stack = new Stack<>();
-        stack.push(s.charAt(0));
+        if (list1.val < list2.val){
+            result_tracker = new ListNode(list1.val);
+            list1 = list1.next;
+        }else{
+            result_tracker = new ListNode(list2.val);
+            list2 = list2.next;
+        }
 
-        for(int i = 1; i<s.length(); i++){
-            char curr = s.charAt(i);
-            if(!stack.empty()){
-                char prev = stack.peek();
+        ListNode result = result_tracker;
 
-                String pair = ""+prev+curr;
-
-                if(pair.equals("()") || pair.equals("[]") || pair.equals("{}")){
-                    stack.pop();
-                }else{
-                    stack.push(curr);
-                }
+        while(list1 != null && list2!=null){
+            if(list1==null){
+                result_tracker.next = new ListNode(list2.val);
+                list2 = list2.next;
+            } else if(list2==null){
+                result_tracker.next = new ListNode(list1.val);
+                list1 = list1.next;
             }else{
-                stack.push(curr);
+                if (list1.val<list2.val){
+                    result_tracker.next = new ListNode(list1.val);
+                    list1 = list1.next;
+                }else{
+                    result_tracker.next = new ListNode(list2.val);
+                    list2 = list2.next;
+                }
             }
-            
+            result_tracker = result_tracker.next;
         }
 
-        return stack.empty();
+        return result.next;
     }
 
     public static void main(String[] args){
