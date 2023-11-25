@@ -1,60 +1,69 @@
-import java.util.*;
-
-public class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
-  
- 
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode result_tracker;
-
-        if(list1 ==null){
-            return list2;
-        }else if(list2== null){
-            return list1;
-        }
-
-        if (list1.val < list2.val){
-            result_tracker = new ListNode(list1.val);
-            list1 = list1.next;
-        }else{
-            result_tracker = new ListNode(list2.val);
-            list2 = list2.next;
-        }
-
-        ListNode result = result_tracker;
-
-        while(list1 != null && list2!=null){
-            if(list1==null){
-                result_tracker.next = new ListNode(list2.val);
-                list2 = list2.next;
-            } else if(list2==null){
-                result_tracker.next = new ListNode(list1.val);
-                list1 = list1.next;
+    public static boolean helper(TreeNode A, TreeNode B){
+        if(!(A==null && B==null)){
+            if( A==null || B==null || (A.val != B.val) ){
+                System.out.println("False");
+                return false;
             }else{
-                if (list1.val<list2.val){
-                    result_tracker.next = new ListNode(list1.val);
-                    list1 = list1.next;
-                }else{
-                    result_tracker.next = new ListNode(list2.val);
-                    list2 = list2.next;
-                }
+                System.out.println("A.val: " + A.val + " B.val: " + B.val);
+                return helper(A.left, B.right) && helper(A.right, B.left);
             }
-            result_tracker = result_tracker.next;
+        }else{
+            System.out.println("True");
+            return true;
         }
-
-        return result.next;
+    }
+    public static boolean isSymmetric(TreeNode root) {
+        if (root == null || (root.left==null && root.right==null)){
+            return true;
+        }else{ 
+            return helper(root.left, root.right);
+        }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        // TreeNode root = new TreeNode(1);
+        // TreeNode left = new TreeNode(2);
+        // root.left = left;
+        // TreeNode right = new TreeNode(2);
+        // root.right = right;
+        // TreeNode leftleft = new TreeNode(3);
+        // left.left = leftleft;
+        // TreeNode leftright = new TreeNode(4);
+        // left.right = leftright;
+        // TreeNode rightleft = new TreeNode(4);
+        // right.left = rightleft;
+        // TreeNode rightright = new TreeNode(3);
+        // right.right = rightright;
+        // System.out.println(isSymmetric(root));
 
-        String s = "()[]{}";
-        System.out.println(isValid(s));
+        TreeNode root = new TreeNode(1);
+        TreeNode left = new TreeNode(2);
+        root.left = left;
+        TreeNode right = new TreeNode(2);
+        root.right = right;
+        TreeNode leftright = new TreeNode(3);
+        left.right = leftright;
+
+        TreeNode rightright = new TreeNode(3);
+        right.right = rightright;
+        System.out.println(isSymmetric(root));
+
+
     }
 }
