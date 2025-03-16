@@ -84,4 +84,94 @@ class Solution(object):
         :type needle: str
         :rtype: int
         """
+        if len(haystack)<len(needle): 
+            return -1
         
+        # create a dict 
+        for index in range(len(haystack)-len(needle)+1): 
+            current_case = haystack[index : (index+len(needle))]
+            if current_case == needle: 
+                return index
+            
+        return -1
+    
+
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        # remove all non alphabet 
+        forward = ""
+        for char in s: 
+            if char.isalnum():
+                forward = forward + char
+
+        forward = forward.lower()
+        backward = forward[::-1]
+
+        return forward == backward
+
+
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        left = 0
+        right = len(s)-1
+
+        while left<right: 
+            while left<right and not s[left].isalnum(): 
+                left+=1
+            while left<right and not s[right].isalnum(): 
+                right-=1
+
+            if s[left].lower() != s[right].lower(): 
+                return False
+            
+            left+=1
+            right-=1
+
+        return True
+    
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        # Two-pointer approach (O(n) time, O(1) space)
+        left, right = 0, len(s) - 1
+
+        while left < right:
+            while left < right and not s[left].isalnum():
+                left += 1
+            while left < right and not s[right].isalnum():
+                right -= 1
+
+            if s[left].lower() != s[right].lower():
+                return False
+
+            left += 1
+            right -= 1
+
+        return True
+
+
+
+class Solution(object):
+    def isSubsequence(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        p_s = 0
+        for char in t: 
+            if p_s < len(s) and s[p_s] == char: 
+                p_s += 1
+
+        return p_s == len(s)
