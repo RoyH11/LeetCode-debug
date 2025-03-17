@@ -175,3 +175,91 @@ class Solution(object):
                 p_s += 1
 
         return p_s == len(s)
+    
+
+class Solution(object):
+    def canConstruct(self, ransomNote, magazine):
+        """
+        :type ransomNote: str
+        :type magazine: str
+        :rtype: bool
+        """
+        if len(ransomNote)>len(magazine): 
+            return False
+        
+        # construct dict_m
+        dict_m = {}
+        for c in magazine: 
+            if c in dict_m: 
+                dict_m[c] += 1
+            else: 
+                dict_m[c] = 1
+
+        # construct dict_r
+        dict_r = {}
+        for c in ransomNote: 
+            if c in dict_r: 
+                dict_r[c] += 1
+            else: 
+                dict_r[c] = 1
+
+        #test each key in dict_r
+        for key in dict_r.keys(): 
+            if key not in dict_m: 
+                return False
+            elif dict_r[key]>dict_m[key]: 
+                return False
+            
+        return True
+    
+from collections import Counter
+
+class Solution(object):
+    def canConstruct(self, ransomNote, magazine):
+        """
+        :type ransomNote: str
+        :type magazine: str
+        :rtype: bool
+        """
+        if len(ransomNote)>len(magazine): 
+            return False
+        
+        count_r = Counter(ransomNote)
+        count_m = Counter(magazine)
+
+        for key, value in count_r.items(): 
+            if value>count_m[key]: 
+                return False
+            
+        return True
+    
+
+class Solution(object):
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        if len(s)!=len(t): 
+            return False
+        
+        match_dict = {}
+        for index, s_char in enumerate(s): 
+            t_char = t[index]
+            if s_char not in match_dict: 
+                match_dict[s_char] = t_char
+            else: 
+                if match_dict[s_char]!=t_char: 
+                    return False
+                
+        # check uniqueness
+        unique = set()
+        for value in match_dict.values(): 
+            if value in unique: 
+                return False
+            else: 
+                unique.add(value)
+        return True
+    
+
