@@ -235,3 +235,140 @@ class Solution(object):
         tail.next = list1 if list1 else list2
 
         return dummy.next 
+    
+
+
+
+# Definition for a binary tree node.
+class TreeNode(object):
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: int
+        """
+        if root is None: 
+            return 0
+        if root.left is None and root.right is None: 
+            return 1
+        
+        left_depth = self.maxDepth(root.left)
+        right_depth = self.maxDepth(root.right)
+
+        return max(left_depth, right_depth) +1
+    
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: int
+        """
+        if root is None: 
+            return 0
+
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) +1
+    
+
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def isSameTree(self, p, q):
+        """
+        :type p: Optional[TreeNode]
+        :type q: Optional[TreeNode]
+        :rtype: bool
+        """
+        if p is None and q is None: 
+            return True
+        elif p is None or q is None: 
+            return False
+        else: 
+            if p.val != q.val: 
+                return False
+            else: 
+                return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+                # swap = self.isSameTree(p.right, q.left) and self.isSameTree(p.left, q.right)
+                return normal
+
+
+class Solution(object):
+    def invertTree(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: Optional[TreeNode]
+        """
+        if root is None: 
+            return root
+        elif root.left is None and root.right is None: 
+            return root
+        else: 
+            self.invertTree(root.left)
+            self.invertTree(root.right)
+
+            temp = root.left
+            root.left = root.right
+            root.right = temp
+            return root 
+
+
+# BFS            
+from collections import deque
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: bool
+        """
+        if not root: 
+            return False
+
+        queue = deque([(root.left, root.right)])
+
+        while queue: 
+            left, right = queue.popleft()
+
+            if not left and not right: 
+                continue
+            if not left or not right or left.val != right.val: 
+                return False
+            
+            queue.append((left.right, right.left))
+            queue.append((left.left, right.right))
+
+        return True
+
+
+# DFS
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: bool
+        """
+        if not root: 
+            return False
+        
+        stack = [(root.left, root.right)]
+
+        while stack: 
+            left, right = stack.pop()
+
+            if not left and not right: 
+                continue
+            if not left or not right or left.val != right.val: 
+                return False
+            
+            stack.append((left.left, right.right))
+            stack.append((left.right, right.left))
+
+        return True
