@@ -122,3 +122,51 @@ class Solution(object):
                 nums_dict[num] = index
                 
         return False
+    
+
+
+
+class Solution(object):
+    def summaryRanges(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[str]
+        """
+        result = []
+        i = 0
+        while i < len(nums): 
+            start = nums[i]
+            while i+1 < len(nums) and nums[i+1] == nums[i]+1: 
+                i += 1
+            
+            if start == nums[i]: 
+                result.append(str(start))
+            else: 
+                result.append(str(start) + "->" + str(nums[i]))
+            i += 1       
+
+        return result
+    
+
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+
+        stack = []
+        bracket_map = {')':'(', ']':'[', '}':'{'}
+
+        for char in s: 
+            if char in bracket_map: 
+                if stack and stack[-1] == bracket_map[char]: 
+                    stack.pop()
+                else: 
+                    return False
+            else: 
+                stack.append(char)
+
+        return not stack
+            
+        
