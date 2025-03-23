@@ -372,3 +372,78 @@ class Solution(object):
             stack.append((left.right, right.left))
 
         return True
+
+
+# Definition for a binary tree node.
+class TreeNode(object):
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution(object):
+    def hasPathSum(self, root, targetSum):
+        """
+        :type root: Optional[TreeNode]
+        :type targetSum: int
+        :rtype: bool
+        """
+        if not root: 
+            return False
+                    
+        if root.val == targetSum and not root.left and not root.right: 
+            return True
+            
+        targetSum -= root.val 
+        return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)
+    
+from collections import deque
+class Solution(object):
+    def countNodes(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: int
+        """
+        if not root: 
+            return 0
+        
+        counter = 0
+        queue = deque()
+        queue.append(root)
+        while queue: 
+            node = queue.popleft()
+            counter += 1
+            if node.left: queue.append(node.left)
+            if node.right: queue.append(node.right)
+
+        return counter
+    
+class Solution(object):
+    def countNodes(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: int
+        """
+        def get_left_height(node):
+            h = 0
+            while node: 
+                h+=1
+                node = node.left
+            return h
+        
+        def get_right_height(node): 
+            h = 0
+            while node: 
+                h+=1
+                node = node.right
+            return h 
+        
+        if not root: 
+            return 0
+        
+        left_height = get_left_height(root)
+        right_height = get_right_height(root)
+
+        if left_height == right_height: 
+            return (1<<left_height) -1
+        else: 
+            return 1+self.countNodes(root.left)+self.countNodes(root.right)
