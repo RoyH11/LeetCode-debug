@@ -447,3 +447,56 @@ class Solution(object):
             return (1<<left_height) -1
         else: 
             return 1+self.countNodes(root.left)+self.countNodes(root.right)
+        
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def averageOfLevels(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: List[float]
+        """
+        avg_list = []
+        current_l = [root]
+        while current_l: 
+            next_l = []
+            level_count = len(current_l)
+            total = 0
+
+            for node in current_l: 
+                total += node.val
+                if node.left: next_l.append(node.left)
+                if node.right: next_l.append(node.right)
+
+            avg_list.append(total/level_count)
+            current_l = next_l
+
+        return avg_list
+
+
+from typing import List, Optional
+from collections import deque
+
+class Solution:
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        result = []
+        queue = deque([root])
+
+        while queue: 
+            level_total = 0 
+            level_count = len(queue)
+
+            for _ in range(level_count): 
+                node = queue.popleft()
+                level_total += node.val
+
+                if node.left: queue.append(node.left)
+                if node.right: queue.append(node.right)
+
+            result.append(level_total/level_count)
+
+        return result
