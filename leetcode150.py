@@ -500,3 +500,88 @@ class Solution:
             result.append(level_total/level_count)
 
         return result
+    
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        ordered_list = []
+
+        def dfs(node): 
+            if not node: 
+                return 
+            dfs(node.left)
+            ordered_list.append(node.val)
+            dfs(node.right)
+
+        dfs(root)
+
+        min_val = float('inf')
+        for i in range(len(ordered_list)-1): 
+            current = ordered_list[i]
+            next = ordered_list[i+1]
+            min_val = min(min_val, next-current)
+        
+        return int(min_val)
+
+
+
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        prev = None
+        min_diff = float('inf')
+
+        def inorder(node): 
+            nonlocal prev, min_diff
+            if not node: 
+                return 
+            
+            inorder(node.left)
+            if prev is not None: 
+                min_diff = min(min_diff, node.val - prev)
+            prev = node.val
+            inorder(node.right)
+
+        inorder(root)
+        
+        return int(min_diff)
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        if not nums: 
+            return None
+        
+        mid_index = len(nums)//2
+        node = TreeNode(nums[mid_index])
+
+        node.left = self.sortedArrayToBST(nums[:mid_index])
+        node.right = self.sortedArrayToBST(nums[mid_index+1:])
+
+        return node
+
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        def build(left, right): 
+            if left>right: 
+                return None
+            
+            mid = (left + right)//2
+            node = TreeNode(nums[mid])
+            node.left = build(left, mid-1)
+            node.right = build(mid+1, right)
+
+            return node
+
+        return build(0, len(nums)-1)
