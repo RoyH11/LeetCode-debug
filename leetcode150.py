@@ -623,3 +623,14 @@ class Solution:
             j -= 1
 
         return "".join(reversed(result))
+    
+
+class Solution:
+    def reverseBits(self, n: int) -> int:
+        result = 0 
+        for i in range(32): 
+            # shift 1 bit to the left, grab last bit in n
+            result = (result << 1) | n & 1
+            # remove last bit in n 
+            n >>= 1
+        return result 
