@@ -634,3 +634,29 @@ class Solution:
             # remove last bit in n 
             n >>= 1
         return result 
+    
+
+# 191 
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        set_bits = 0 
+        while n: 
+            set_bits += n & 1
+            n >>= 1
+        return set_bits
+
+class Solution: 
+    def hammingWeight(self, n: int) -> int:
+        set_bits = 0 
+        while n: 
+            n &= (n-1)
+            set_bits += 1
+        return set_bits
+    
+# 136 
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        result = 0 
+        for num in nums: 
+            result ^= num
+        return result
