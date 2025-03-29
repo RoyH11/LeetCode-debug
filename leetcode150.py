@@ -660,3 +660,46 @@ class Solution:
         for num in nums: 
             result ^= num
         return result
+    
+# 9 
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        forward_x = str(x)
+        backward_x = str(x)[::-1]
+        if x<0: 
+            forward_x = '-' + forward_x
+            backward_x = backward_x + '-'
+
+        i = 0
+        for i in range(len(forward_x)): 
+            if forward_x[i] != backward_x[i]: 
+                return False
+        return True
+
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0: 
+            return False
+        return str(x) == str(x)[::-1]
+    
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0 or (x % 10 == 0 and x != 0):
+            return False
+        x_temp = x
+        x_backward = 0
+        while x_temp: 
+            x_backward = x_backward * 10 + x_temp % 10 
+            x_temp //= 10
+        return x == x_backward
+        
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0 or (x % 10 == 0 and x != 0):
+            return False
+        x_backward = 0
+        while x > x_backward: 
+            x_backward = x_backward * 10 + x % 10 
+            x //= 10
+        return x == x_backward or x == x_backward // 10 
+        
