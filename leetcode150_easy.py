@@ -703,3 +703,77 @@ class Solution:
             x //= 10
         return x == x_backward or x == x_backward // 10 
         
+# 66 
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        if digits[-1] != 9: 
+            digits[-1] += 1
+            return digits
+        
+        carry = 1
+        for i in range(len(digits)-1, -1, -1): 
+            if digits[i] == 9: 
+                digits[i] = 0
+            else: 
+                digits[i] += 1
+                carry = 0
+                break
+
+        if carry: 
+            digits = [1] + digits
+
+        return digits
+        
+
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        
+        for i in range(len(digits)-1, -1, -1): 
+            if digits[i] < 9: 
+                digits[i] += 1
+                return digits
+            digits[i] = 0
+
+        return [1] + digits
+    
+# 69
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        if x < 2: 
+            return x
+        
+        low, high = 0, x
+        res = 0
+        while low <= high: 
+            mid = (low + high)//2
+            if mid * mid == x: 
+                return mid
+            elif mid * mid < x: 
+                low = mid + 1
+                res = mid
+            else: 
+                high = mid - 1 
+
+        return res 
+    
+#70 
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n <= 2: 
+            return n 
+        a, b = 1, 2
+        for i in range(3, n+1): 
+            a, b = b, a + b
+        return b
+    
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n <= 2: 
+            return n 
+        
+        dp = [0] * (n+1)
+        dp[1] = 1
+        dp[2] = 2
+        for i in range(3, n+1): 
+            dp[i] = dp[i-1] + dp[i-2]
+        return dp[n]
