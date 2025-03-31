@@ -105,3 +105,34 @@ class Solution:
                 pr = i
             
         return pr == 0
+    
+# 45 
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        level_index_list = [{0}]
+
+        while (len(nums) - 1) not in level_index_list[-1]:
+            new_level = set()
+            
+            for i in level_index_list[-1]: 
+                for j in range(1, nums[i] + 1): 
+                    new_level.add(i+j)
+            
+            level_index_list.append(new_level)
+
+        return len(level_index_list) - 1
+
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        jumps = 0
+        cur_end = 0
+        farthest = 0
+
+        for i in range(len(nums) - 1): 
+            farthest = max(farthest, nums[i] + i)
+
+            if i == cur_end: 
+                jumps += 1
+                cur_end = farthest
+
+        return jumps
