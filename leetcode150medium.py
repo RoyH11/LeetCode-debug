@@ -77,3 +77,21 @@ class Solution:
 
         return total 
 
+#55 
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        if len(nums) == 1: 
+            return True
+        
+        # construct a power map
+        power_dict = {}
+        for i in range(len(nums)): 
+            power_dict[i] = i + nums[i]
+
+        # back tracking
+        pr = len(nums) - 1
+        for i in range(len(nums)-1, -1, -1): 
+            if power_dict[i] >= pr: 
+                pr = i
+            
+        return pr == 0
