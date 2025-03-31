@@ -95,3 +95,13 @@ class Solution:
                 pr = i
             
         return pr == 0
+    
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        # back tracking
+        pr = len(nums) - 1
+        for i in range(len(nums)-1, -1, -1): 
+            if nums[i] + i >= pr: 
+                pr = i
+            
+        return pr == 0
