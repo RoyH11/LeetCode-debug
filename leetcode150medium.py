@@ -249,3 +249,21 @@ class Solution:
             result[n-i-1] *= right_mul
 
         return result
+    
+
+# 134
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        total_gas = 0
+        tank = 0 
+        start = 0 
+        for i in range(len(gas)): 
+            gain = gas[i] - cost[i]
+            total_gas += gain
+            tank += gain 
+
+            if tank < 0: 
+                start = i + 1
+                tank = 0 
+
+        return start if total_gas >= 0 else -1
