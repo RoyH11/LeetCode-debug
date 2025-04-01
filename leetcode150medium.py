@@ -213,3 +213,39 @@ class RandomizedSet:
 # param_1 = obj.insert(val)
 # param_2 = obj.remove(val)
 # param_3 = obj.getRandom()
+
+
+# 238
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        left_list = [1]
+        right_list = [1]
+        
+        for i in range(n - 1): 
+            left_list.append(left_list[-1] * nums[i])
+            right_list.append(right_list[-1] * nums[n - 1 - i])
+        
+        right_list.reverse()
+
+        result = []
+        for i in range(n): 
+            result.append(left_list[i] * right_list[i])
+
+        return result 
+    
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        result = [1] * n
+        left_mul = 1
+        right_mul = 1
+
+        for i in range(1, n): 
+            left_mul *= nums[i-1]
+            result[i] *= left_mul
+
+            right_mul *= nums[n-i]
+            result[n-i-1] *= right_mul
+
+        return result
