@@ -136,3 +136,31 @@ class Solution:
                 cur_end = farthest
 
         return jumps
+    
+#150    
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        citations = sorted(citations, reverse=True)
+        for i in range(len(citations)): 
+            if citations[i] <= i: 
+                return i
+        return len(citations)
+    
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        n = len(citations)
+        bucket = [0] * (n+1)
+
+        for c in citations: 
+            if c >= n: 
+                bucket[n] += 1
+            else:
+                bucket[c] += 1
+
+        total = 0
+        for i in range(n , -1, -1): 
+            total += bucket[i]
+            if total >= i: 
+                return i
+            
+        return 0
