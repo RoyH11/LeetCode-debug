@@ -267,3 +267,67 @@ class Solution:
                 tank = 0 
 
         return start if total_gas >= 0 else -1
+    
+# 12
+class Solution:
+    def intToRoman(self, num: int) -> str:
+        table = {
+            1000:"M", 
+            900:"CM", 
+            500:"D", 
+            400:"CD", 
+            100:"C", 
+            90:"XC",
+            50:"L", 
+            40:"XL",
+            10:"X", 
+            9:"IX",
+            5:"V", 
+            4:"IV",
+            1:"I"
+            }
+        
+
+        roman = ""
+
+        for d in table: 
+            # add 
+            count = num // d
+            for i in range(count): 
+                roman += table[d]
+
+            num %= d
+
+        return roman 
+    
+class Solution:
+    def intToRoman(self, num: int) -> str:
+        table = [
+            (1000, "M"), 
+            (900, "CM"), 
+            (500, "D"), 
+            (400, "CD"), 
+            (100, "C"), 
+            (90, "XC"),
+            (50, "L"), 
+            (40, "XL"),
+            (10, "X"), 
+            (9, "IX"),
+            (5, "V"), 
+            (4, "IV"),
+            (1, "I")
+        ]
+        
+
+        roman = ""
+
+        for val, roman_val in table:
+            # add 
+            count = num // val
+            
+            roman += roman_val * count
+
+            # update 
+            num %= val
+
+        return roman 
