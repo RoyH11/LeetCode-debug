@@ -1,3 +1,5 @@
+from typing import List
+
 #135 
 class Solution:
     def candy(self, ratings: List[int]) -> int:
@@ -31,3 +33,4 @@ class Solution:
                 
         else: 
             # move both way 
+            pass
