@@ -515,3 +515,40 @@ class Solution:
                         k -= 1
                                                 
         return results
+    
+# 209 
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        min_length = len(nums) + 1
+        total = 0
+        start = 0
+
+        for end in range(len(nums)): 
+            total += nums[end]
+
+            while start < end and (total - nums[start]) >= target:
+                total -= nums[start]
+                start += 1
+
+            if total >= target: 
+                min_length = min(min_length, (end - start + 1))
+
+        return 0 if min_length == len(nums) + 1 else min_length 
+    
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        n = len(nums)
+        min_length = n + 1
+        total = 0
+        start = 0
+
+        for end in range(n): 
+            total += nums[end]
+
+            while total >= target:
+                min_length = min(min_length, (end - start + 1))
+                total -= nums[start]
+                start += 1                
+
+        return 0 if min_length == n + 1 else min_length 
+    
