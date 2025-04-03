@@ -394,3 +394,35 @@ class Solution:
             cur_row += 1 if going_down else -1
 
         return ''.join(rows)
+    
+# 167
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        small_index = 0
+        large_index = len(numbers) -1 
+        satisfied = False
+
+        while small_index < large_index and not satisfied: 
+            if numbers[small_index] + numbers[large_index] == target: 
+                satisfied = True
+            elif numbers[small_index] + numbers[large_index] < target: 
+                small_index += 1
+            else: 
+                large_index -= 1
+            
+        return [small_index+1, large_index+1]
+    
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        small_index = 0
+        large_index = len(numbers) -1 
+
+        while small_index < large_index: 
+            if numbers[small_index] + numbers[large_index] == target: 
+                return [small_index+1, large_index+1]
+            elif numbers[small_index] + numbers[large_index] < target: 
+                small_index += 1
+            else: 
+                large_index -= 1
+            
+        
