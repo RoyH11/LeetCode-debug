@@ -338,3 +338,59 @@ class Solution:
         words = s.split()
         words.reverse()
         return ' '.join(words)
+
+# 6 
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if len(s) <= numRows or numRows == 1: 
+            return s
+        
+        characters = [c for c in s]
+        characters.reverse()
+        
+        columns = []
+        # start 
+        while characters: 
+            counter = 0
+            # start the zigzag
+            while counter < numRows-1 and characters: 
+                column = [' '] * numRows
+                if counter == 0: 
+                    # populate the complete row
+                    inner_counter = 0
+                    while inner_counter < numRows and characters: 
+                        column[inner_counter] = characters.pop()
+                        inner_counter += 1
+                else: 
+                    column[numRows - 1 - counter] = characters.pop()
+
+                # add column 
+                columns.append(column)
+                counter += 1
+        
+        result = ''
+        for i in range(numRows): 
+            for j in range(len(columns)): 
+                if columns[j][i] != ' ': 
+                    result += columns[j][i]
+
+        return result
+
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows >= len(s) or numRows == 1: 
+            return s
+        
+        rows = [''] * numRows
+        cur_row = 0
+        going_down = False
+
+        for c in s: 
+            rows[cur_row] += c
+
+            if cur_row == 0 or cur_row == numRows - 1: 
+                going_down = not going_down
+
+            cur_row += 1 if going_down else -1
+
+        return ''.join(rows)
