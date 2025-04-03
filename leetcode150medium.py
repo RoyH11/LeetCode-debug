@@ -444,3 +444,74 @@ class Solution:
         
         return max_area
 
+# 15
+# too slow 
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        results_set = []
+        results = []
+        for i in range(len(nums)-2): 
+            for j in range(i+1, len(nums)-1): 
+                for k in range(j+1, len(nums)): 
+                    if nums[i] + nums[j] + nums[k] == 0 and {nums[i], nums[j], nums[k]} not in results_set: 
+                        results_set.append({nums[i], nums[j], nums[k]})
+                        results.append([nums[i], nums[j], nums[k]])
+        return results
+    
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        results = []
+
+        for i in range(len(nums)-2): 
+            if i == 0 or nums[i] != nums[i-1]:
+                # 2 pointers
+                j = i+1
+                k = len(nums) - 1 
+                while j < k: 
+                    three_sum = nums[i] + nums[j] + nums[k]
+                    if three_sum < 0: 
+                        j += 1
+                    elif three_sum > 0: 
+                        k -= 1
+                    else: 
+                        if (j == i+1 or nums[j] != nums[j-1]) and (k == len(nums)-1 or nums[k] != nums[k+1]): 
+                            results.append([nums[i], nums[j], nums[k]])
+                            j += 1
+                            k -= 1
+                        else:   
+                            if j != i+1 and nums[j] == nums[j-1]: 
+                                j += 1
+                            if k != len(nums)-1 and nums[k] == nums[k+1]: 
+                                k -= 1
+                        
+        return results
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        results = []
+
+        for i in range(len(nums)-2): 
+            if i == 0 or nums[i] != nums[i-1]:
+                # 2 pointers
+                j = i+1
+                k = len(nums) - 1 
+                while j < k: 
+                    three_sum = nums[i] + nums[j] + nums[k]
+                    if three_sum < 0: 
+                        j += 1
+                    elif three_sum > 0: 
+                        k -= 1
+                    else: 
+                        results.append([nums[i], nums[j], nums[k]])
+                        # skip if next is the same
+                        while j<k and nums[j] == nums[j+1]: 
+                            j += 1
+                        while j<k and nums[k] == nums[k-1]: 
+                            k -= 1
+                        # move pointers 
+                        j += 1
+                        k -= 1
+                                                
+        return results
