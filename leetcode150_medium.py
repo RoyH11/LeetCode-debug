@@ -607,3 +607,115 @@ class Solution:
 
         return longest_len
             
+#36 
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+
+        # check whole line
+        for i in range(9):
+
+            # check horizontally 
+            nums_1 = set()
+            # check vertically
+            nums_2 = set()
+
+            for j in range(9): 
+
+                # left to right
+                if board[i][j] != '.': 
+                    if board[i][j] not in nums_1:
+                        nums_1.add(board[i][j]) 
+                    else: 
+                        return False
+                    
+                # top to down 
+                if board[j][i] != '.': 
+                    if board[j][i] not in nums_2:
+                        nums_2.add(board[j][i]) 
+                    else: 
+                        return False
+                
+        # check 3 by 3
+        for i in range(0, 9, 3):
+            for j in range(0, 9, 3): 
+
+                nums = set()
+
+                # check cube
+                for x in range(i, i+3): 
+                    for y in range(j, j+3): 
+
+                        if board[x][y] != '.':
+                            if board[x][y] not in nums: 
+                                nums.add(board[x][y])
+                            else: 
+                                return False
+        
+        return True
+
+
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+
+        # check whole line
+        for i in range(9):
+
+            # check horizontally 
+            nums_1 = set()
+            # check vertically
+            nums_2 = set()
+
+            for j in range(9): 
+
+                # left to right
+                if board[i][j] != '.': 
+                    if board[i][j] not in nums_1:
+                        nums_1.add(board[i][j]) 
+                    else: 
+                        return False
+                    
+                # top to down 
+                if board[j][i] != '.': 
+                    if board[j][i] not in nums_2:
+                        nums_2.add(board[j][i]) 
+                    else: 
+                        return False
+
+                # check 3 by 3  
+                if i % 3 == 0 and j % 3 == 0: 
+                    print("hit")
+                    nums = set()
+
+                    # check cube
+                    for x in range(i, i+3): 
+                        for y in range(j, j+3): 
+
+                            if board[x][y] != '.':
+                                if board[x][y] not in nums: 
+                                    nums.add(board[x][y])
+                                else: 
+                                    return False
+        
+        return True
+    
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = [set() for _ in range(9)]
+        cols = [set() for _ in range(9)]
+        boxes = [set() for _ in range(9)]
+
+        for i in range(9): 
+            for j in range(9): 
+                val = board[i][j]
+
+                if val == '.': 
+                    continue
+
+                if val in rows[i] or val in cols[j] or val in boxes[(i//3) * 3 + (j//3)]: 
+                    return False
+                
+                rows[i].add(val)
+                cols[j].add(val)
+                boxes[(i//3) * 3 + (j//3)].add(val)
+
+        return True
