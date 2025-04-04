@@ -570,3 +570,40 @@ class Solution:
                 min_len = min(min_len, i-j)
 
         return 0 if min_len == n+1 else min_len
+
+# 3
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s) < 2: 
+            return len(s)
+        
+        cur_set = set()
+        longest_len = 0
+        start = 0
+        for c in s: 
+            if c not in cur_set: 
+                cur_set.add(c)
+            else: 
+                while s[start] != c: 
+                    cur_set.discard(s[start])
+                    start += 1
+                start += 1
+            longest_len = max(longest_len, len(cur_set))
+
+        return longest_len
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        cur_set = set()
+        longest_len = 0
+        start = 0
+
+        for end in range(len(s)):
+            while s[end] in cur_set:
+                cur_set.discard(s[start])
+                start += 1
+            cur_set.add(s[end])
+            longest_len = max(longest_len, end-start+1)
+
+        return longest_len
+            
