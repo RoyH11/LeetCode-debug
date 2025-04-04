@@ -552,3 +552,21 @@ class Solution:
 
         return 0 if min_length == n + 1 else min_length 
     
+from bisect import bisect_right
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        n = len(nums)
+        prefix = [0] * (n+1)
+
+        for i in range(1, n+1): 
+            prefix[i] = prefix[i-1] + nums[i-1]
+        
+        min_len = n+1
+
+        for i in range(1, n+1): 
+            required = prefix[i] - target
+            j = bisect_right(prefix, required) - 1
+            if j >= 0: 
+                min_len = min(min_len, i-j)
+
+        return 0 if min_len == n+1 else min_len
