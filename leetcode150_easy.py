@@ -830,3 +830,21 @@ class Solution:
         
         gcd_len = math.gcd(len(str1), len(str2))
         return str1[:gcd_len]
+
+# 1431 
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        max_kid = max(candies)
+        result = []
+        for kid in candies: 
+            if kid + extraCandies >= max_kid: 
+                result.append(True)
+            else: 
+                result.append(False)
+
+        return result
+    
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        max_kid = max(candies)
+        return [extraCandies + c >= max_kid for c in candies]
