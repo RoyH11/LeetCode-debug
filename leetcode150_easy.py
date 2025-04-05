@@ -877,3 +877,59 @@ class Solution:
                     return True
 
         return count >= n
+
+# 345 
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+        vowels = 'aeiouAEIOU'
+        stack = []
+        result = ''
+        for c in s: 
+            if c in vowels: 
+                stack.append(c)
+        
+        for c in s: 
+            if c in vowels: 
+                result += stack.pop()
+            else: 
+                result += c
+        
+        return result
+    
+
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+        vowels = set('aeiouAEIOU')
+        stack = []
+        result = ''
+        for c in s: 
+            if c in vowels: 
+                stack.append(c)
+        
+        for c in s: 
+            if c in vowels: 
+                result += stack.pop()
+            else: 
+                result += c
+        
+        return result
+    
+# two pointer implementation
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+        vowels = set('aeiouAEIOU')
+        s_list = list(s)
+        left = 0
+        right = len(s)-1
+
+        while left < right: 
+            if s_list[left] not in vowels: 
+                left += 1
+            elif s_list[right] not in vowels: 
+                right -= 1
+            else: 
+                s_list[left], s_list[right] = s_list[right], s_list[left]
+                left += 1
+                right -= 1
+        
+        return ''.join(s_list)
