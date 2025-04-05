@@ -777,3 +777,30 @@ class Solution:
         for i in range(3, n+1): 
             dp[i] = dp[i-1] + dp[i-2]
         return dp[n]
+    
+# 1768
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        result = ""
+        while word1 and word2: 
+            result += word1[0] + word2[0]
+            word1 = word1[1:]
+            word2 = word2[1:]
+
+        result += word1
+        result += word2
+        return result
+    
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        result = ""
+        index = 0
+        min_length = min(len(word1), len(word2))
+        while index < min_length:
+            result += word1[index] + word2[index]
+            index += 1
+
+        result += word1[index:]
+        result += word2[index:]
+        return result
+    
