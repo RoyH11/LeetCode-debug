@@ -933,3 +933,27 @@ class Solution:
                 right -= 1
         
         return ''.join(s_list)
+    
+# 283 
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        pr = 0
+        for i in range(len(nums)): 
+            if nums[i] != 0: 
+                nums[i], nums[pr] = nums[pr], nums[i]
+                pr += 1
+
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        pr = 0
+        for i in range(len(nums)): 
+            if nums[i] != 0: 
+                if i != pr:
+                    nums[i], nums[pr] = nums[pr], nums[i]
+                pr += 1
