@@ -804,3 +804,29 @@ class Solution:
         result += word2[index:]
         return result
     
+# 1071
+class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        # find the divisor for 1
+        divisors = []
+        for i in range(len(str1)): 
+            # check 
+            if len(str1) % (i+1) == 0 and str1 == str1[:i+1] * (len(str1)//(i+1)): 
+                divisor = str1[:i+1]
+                divisors.append(divisor)
+        
+        # check if it is divisor for 2
+        for divisor in reversed(divisors):
+            if len(str2) % len(divisor) == 0 and str2 == divisor * (len(str2)//len(divisor)): 
+                return divisor
+        
+        return ""
+
+import math
+class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        if str1 + str2 != str2 + str1: 
+            return ""
+        
+        gcd_len = math.gcd(len(str1), len(str2))
+        return str1[:gcd_len]
