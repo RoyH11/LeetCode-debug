@@ -957,3 +957,26 @@ class Solution:
                 if i != pr:
                     nums[i], nums[pr] = nums[pr], nums[i]
                 pr += 1
+
+# 643 
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        max_avg = float('-inf')
+        total = 0
+        for i in range(len(nums)): 
+            total += nums[i]
+            if i >= k: 
+                total -= nums[i-k]
+            if i >= k-1 or i == len(nums)-1:
+                max_avg = max(max_avg, total)
+        return max_avg/k
+    
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        window_sum = sum(nums[:k])
+        max_sum = window_sum
+        for i in range(k, len(nums)): 
+            window_sum += nums[i] - nums[i-k]
+            max_sum = max(max_sum, window_sum)
+        return max_sum/k
+
