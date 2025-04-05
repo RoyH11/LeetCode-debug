@@ -848,3 +848,32 @@ class Solution:
     def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
         max_kid = max(candies)
         return [extraCandies + c >= max_kid for c in candies]
+    
+
+# 605 
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        bed_len = len(flowerbed)
+        max_flower = 0
+        flowerbed = [0] + flowerbed + [0]
+
+        for i in range(1, bed_len+1): 
+            if flowerbed[i-1] == 0 and flowerbed[i] == 0 and flowerbed[i+1] == 0: 
+                flowerbed[i] = 1
+                max_flower += 1
+        
+        return max_flower >= n 
+    
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        count = 0
+        bed = [0] + flowerbed + [0]
+
+        for i in range(1, len(bed) - 1): 
+            if bed[i-1] == bed[i] == bed[i+1] == 0: 
+                bed[i] = 1
+                count += 1
+                if count >= n: 
+                    return True
+
+        return count >= n
