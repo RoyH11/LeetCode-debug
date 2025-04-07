@@ -996,3 +996,44 @@ from itertools import accumulate
 class Solution:
     def largestAltitude(self, gain: List[int]) -> int:
         return max(0, *accumulate(gain))
+
+# 724
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        n = len(nums)
+        left_sum = [0] * n
+        right_sum = [0] * n
+
+        for i in range(1, n): 
+            left_sum[i] = left_sum[i-1] + nums[i-1]
+            right_sum[n-1-i] = right_sum[n-i] + nums[n-i]
+        
+        for i in range(n): 
+            if left_sum[i] == right_sum[i]: 
+                return i
+            
+        return -1
+    
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        n = len(nums)
+        left_sum = [0] * (n+1)
+        for i in range(1, n+1): 
+            left_sum[i] = left_sum[i-1] + nums[i-1]
+
+        for i in range(n): 
+            if left_sum[i] == left_sum[-1] - left_sum[i+1]: 
+                return i
+        
+        return -1
+    
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        total = sum(nums)
+        left = 0
+        for i, num in enumerate(nums): 
+            if left == total - left - num: 
+                return i 
+            left += num
+        
+        return -1
