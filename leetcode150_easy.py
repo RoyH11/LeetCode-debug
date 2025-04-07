@@ -980,3 +980,19 @@ class Solution:
             max_sum = max(max_sum, window_sum)
         return max_sum/k
 
+
+# 1732
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        highest = 0 
+        current = 0
+        for i in gain: 
+            current += i
+            highest = max(current, highest)
+        
+        return highest
+
+from itertools import accumulate    
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        return max(0, *accumulate(gain))
