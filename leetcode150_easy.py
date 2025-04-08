@@ -1060,3 +1060,25 @@ class Solution:
         differences = [list(set1-set2), list(set2-set1)]
         
         return differences
+
+#1207
+from collections import Counter    
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        count = Counter(arr)
+        for key, value in count.items(): 
+            if key != value: 
+                return False
+        return True
+    
+from collections import Counter    
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        count = Counter(arr)
+        values = set()
+        for key, value in count.items(): 
+            if value not in values: 
+                values.add(value)
+            else: 
+                return False
+        return True
