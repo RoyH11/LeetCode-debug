@@ -1037,3 +1037,26 @@ class Solution:
             left += num
         
         return -1
+    
+# 2215
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        set1 = set(nums1)
+        set2 = set(nums2)
+        differences = [[], []]
+        for n in set1: 
+            if n not in set2: 
+                differences[0].append(n)
+        for n in set2: 
+            if n not in set1: 
+                differences[1].append(n)
+        
+        return differences
+    
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        set1 = set(nums1)
+        set2 = set(nums2)
+        differences = [list(set1-set2), list(set2-set1)]
+        
+        return differences
