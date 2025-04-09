@@ -1113,3 +1113,36 @@ class RecentCounter:
 # Your RecentCounter object will be instantiated and called as such:
 # obj = RecentCounter()
 # param_1 = obj.ping(t)
+
+# 206
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head: 
+            return head
+
+        pre = None
+        while head.next: 
+            post = head.next
+            head.next = pre
+            pre = head
+            head = post 
+        
+        head.next = pre
+        return head 
+    
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        pre = None
+        curr = head
+        while curr: 
+            post = curr.next
+            curr.next = pre
+            pre = curr
+            curr = post 
+        
+        return pre
