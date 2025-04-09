@@ -1146,3 +1146,56 @@ class Solution:
             curr = post 
         
         return pre
+
+# 875
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        def dfs(sequence: list[int], root): 
+            if root is None: 
+                return sequence
+            
+            if root.left is None and root.right is None: 
+                sequence.append(root.val)
+                return sequence
+            
+            dfs(sequence, root.left)
+            dfs(sequence, root.right)
+            return sequence
+
+        return dfs([], root1) == dfs([], root2)
+    
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        def dfs(sequence: list[int], root): 
+            if root is None: 
+                return 
+            
+            if root.left is None and root.right is None: 
+                sequence.append(root.val)
+                return 
+            
+            dfs(sequence, root.left)
+            dfs(sequence, root.right)
+
+        seq1 = []
+        seq2 = []
+        dfs(seq1, root1)
+        dfs(seq2, root2)
+        return seq1 == seq2
+    
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        def dfs(root): 
+            if root: 
+                if root.left is None and root.right is None: 
+                    yield root.val
+                yield from dfs(root.left)
+                yield from dfs(root.right)
+
+        return list(dfs(root1)) == list(dfs(root2))
