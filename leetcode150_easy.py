@@ -1231,3 +1231,41 @@ class Solution:
                 root = root.right
 
         return None
+
+# 374 
+# The guess API is already defined for you.
+# @param num, your guess
+# @return -1 if num is higher than the picked number
+#          1 if num is lower than the picked number
+#          otherwise return 0
+# def guess(num: int) -> int:
+
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        low = 1
+        high = n
+        mid = (low + high)//2
+        feedback = guess(mid)
+        while feedback != 0: 
+            if feedback == -1: 
+                high = mid - 1
+            else: 
+                low = mid + 1
+            mid = (low + high)//2
+            feedback = guess(mid)
+        return mid
+    
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        low = 1
+        high = n
+        while low <= high: 
+            mid = (low + high) // 2
+            feedback = guess(mid)
+            if feedback == 0: 
+                return mid 
+            elif feedback == -1: 
+                high = mid - 1
+            else: 
+                low = mid + 1
+                
