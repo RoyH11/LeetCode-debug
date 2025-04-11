@@ -762,7 +762,7 @@ class Solution:
             while pr < len(chars) and chars[pr] == element: 
                 chars.pop(pr)
                 counter += 1
-                
+
             if counter > 1: 
                 counter_list = list(str(counter))
                 for digit in counter_list: 
@@ -770,4 +770,27 @@ class Solution:
                     pr += 1
 
         return len(chars)
+    
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        write = 0
+        read = 0 
 
+        while read < len(chars): 
+            char = chars[read]
+            count = 0
+            while read < len(chars) and chars[read] == char: 
+                read += 1
+                count += 1
+            
+            chars[write] = char
+            write += 1
+
+            if count > 1: 
+                for digit in str(count): 
+                    chars[write] = digit
+                    write += 1
+        
+        return write
+
+# 1679
