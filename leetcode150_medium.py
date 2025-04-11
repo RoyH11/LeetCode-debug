@@ -719,3 +719,30 @@ class Solution:
                 boxes[(i//3) * 3 + (j//3)].add(val)
 
         return True
+    
+# 334
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        seq = [float('inf')] * 2
+        for num in nums: 
+            if num < seq[0]: 
+                seq[0] = num
+            elif seq[0] < num < seq[1]: 
+                seq[1] = num
+            elif num > seq[1]: 
+                return True
+            
+        return False
+
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        first = second = float('inf')
+        for num in nums: 
+            if num <= first: 
+                first = num
+            elif num <= second: 
+                second = num
+            else: 
+                return True
+            
+        return False
