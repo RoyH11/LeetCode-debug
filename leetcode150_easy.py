@@ -1288,3 +1288,19 @@ class Solution:
         for _ in range(3, n+1): 
             a, b, c = b, c, a+b+c
         return c
+    
+# 746
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        n = len(cost)
+        min_costs = [0] * (n + 1)
+        for i in range(2, n+1): 
+            min_costs[i] = min(min_costs[i-2] + cost[i-2], min_costs[i-1] + cost[i-1])
+        return min_costs[n]
+    
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        a, b = 0, 0
+        for i in range(2, len(cost)+1): 
+            a, b = b, min(a + cost[i-2], b + cost[i-1])
+        return b
