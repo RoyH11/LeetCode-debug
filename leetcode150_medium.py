@@ -746,3 +746,28 @@ class Solution:
                 return True
             
         return False
+
+# 443
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        pr = 0
+        element = None
+        counter = None
+
+        while pr < len(chars): 
+            element = chars[pr]
+            counter = 1
+            pr += 1
+
+            while pr < len(chars) and chars[pr] == element: 
+                chars.pop(pr)
+                counter += 1
+                
+            if counter > 1: 
+                counter_list = list(str(counter))
+                for digit in counter_list: 
+                    chars.insert(pr, digit)
+                    pr += 1
+
+        return len(chars)
+
