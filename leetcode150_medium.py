@@ -849,3 +849,59 @@ class Solution:
             output = max(output, count)
 
         return output
+    
+# 1004 
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        credits = k 
+        start = 0
+        maximum = 0
+        count = 0
+
+        for i in range(len(nums)): 
+
+            if nums[i] == 1: # normal just increase
+                count += 1
+                if count == 1: 
+                    start = i
+
+            else: # if current is 0
+                
+                if credits != 0: # use credits if still available
+                    count += 1
+                    credits -= 1
+
+                else: # ran out of credits already
+                    
+                    if nums[start] == 0: # beginning was 0
+                        start += 1
+                        
+                    else: # beginning was 1, restart
+                        if k == 0:  
+                            start = i
+                            count = 0
+                            credits = k
+                        else: # move start until nums[start - 1] == 0 
+                            while start < i and nums[start] != 0: 
+                                count -= 1
+                                start += 1
+                            start += 1
+
+            maximum = max(count, maximum)
+        
+        return maximum
+    
+
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        left = 0
+        for right in range(len(nums)):
+            if nums[right] == 0:
+                k -= 1
+
+            if k < 0:
+                if nums[left] == 0:
+                    k += 1
+                left += 1
+
+        return right - left + 1
