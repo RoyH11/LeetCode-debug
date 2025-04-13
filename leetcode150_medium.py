@@ -924,3 +924,20 @@ class Solution:
                 left += 1
 
         return right - left
+
+# 1657
+from collections import Counter
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool: 
+        map1 = Counter(word1)
+        map2 = Counter(word2)
+        
+        return set(word1) == set(word2) and sorted(map1.values()) == sorted(map2.values())
+    
+from collections import Counter
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool: 
+        map1 = Counter(word1)
+        map2 = Counter(word2)
+        
+        return map1.keys() == map2.keys() and sorted(map1.values()) == sorted(map2.values())
