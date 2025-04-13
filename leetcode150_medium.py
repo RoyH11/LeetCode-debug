@@ -941,3 +941,39 @@ class Solution:
         map2 = Counter(word2)
         
         return map1.keys() == map2.keys() and sorted(map1.values()) == sorted(map2.values())
+
+# 2352    
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        map_rows = {}
+        map_cols = {}
+
+        for i in range(n): 
+            row = tuple(grid[i])
+            col = tuple(r[i] for r in grid)
+
+            if row in map_rows: 
+                map_rows[row] += 1
+            else: 
+                map_rows[row] = 1
+            
+            if col in map_cols: 
+                map_cols[col] += 1
+            else: 
+                map_cols[col] = 1
+
+        count = 0
+        for key in map_rows: 
+            if key in map_cols: 
+                count += map_rows[key] * map_cols[key]
+        return count
+    
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        
+        row_counts = Counter(tuple(row) for row in grid)
+        col_counts = Counter(tuple(row[i] for row in grid) for i in range(n))
+
+        return sum(row_counts[key] * col_counts[key] for key in row_counts if key in col_counts)
