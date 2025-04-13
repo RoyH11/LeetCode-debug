@@ -977,3 +977,14 @@ class Solution:
         col_counts = Counter(tuple(row[i] for row in grid) for i in range(n))
 
         return sum(row_counts[key] * col_counts[key] for key in row_counts if key in col_counts)
+    
+# 2390
+class Solution:
+    def removeStars(self, s: str) -> str:
+        stack = []
+        for c in s: 
+            if c != '*': 
+                stack.append(c)
+            else: 
+                stack.pop()
+        return ''.join(stack)
