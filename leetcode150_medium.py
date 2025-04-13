@@ -905,3 +905,22 @@ class Solution:
                 left += 1
 
         return right - left + 1
+
+# 1439 
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        if 0 not in nums: 
+            return len(nums) - 1
+        
+        left = 0
+        k = 1
+        for right in range(len(nums)):
+            if nums[right] == 0:
+                k -= 1
+
+            if k < 0:
+                if nums[left] == 0:
+                    k += 1
+                left += 1
+
+        return right - left
