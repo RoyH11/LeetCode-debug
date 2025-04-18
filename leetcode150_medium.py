@@ -1162,3 +1162,78 @@ class Solution:
 
         even.next = odd_head
         return head
+    
+# 2130 
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        nums = []
+        while head: 
+            nums.append(head.val)
+            head = head.next 
+
+        maximum = 0
+        n = len(nums)
+        for i in range(n // 2): 
+            maximum = max(maximum, nums[i] + nums[n - 1 - i])
+        
+        return maximum
+    
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        slow = head
+        fast = head 
+        while fast and fast.next: 
+            slow = slow.next 
+            fast = fast.next.next 
+        
+        # start reversing 
+        prev = None
+        curr = slow 
+        next = slow.next 
+        while next: 
+            curr.next = prev 
+            prev = curr 
+            curr = next 
+            next = next.next 
+        curr.next = prev
+
+        result = 0
+        while curr and head: 
+            result = max(result, curr.val + head.val)
+            curr = curr.next 
+            head = head.next 
+
+        return result
+
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        slow = head
+        fast = head 
+        while fast and fast.next: 
+            slow = slow.next 
+            fast = fast.next.next 
+        
+        # start reversing 
+        prev = None
+        curr = slow 
+        while curr: 
+            temp = curr.next 
+            curr.next = prev 
+            prev = curr 
+            curr = temp 
+
+        max_sum = 0
+        first = head 
+        second = prev
+        while second:
+            max_sum = max(max_sum, first.val + second.val)
+            first = first.next 
+            second = second.next 
+
+        return max_sum
