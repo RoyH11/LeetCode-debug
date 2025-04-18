@@ -1073,3 +1073,52 @@ class Solution:
                 dire.append(d_idx + n)
 
         return 'Radiant' if radiant else 'Dire'
+    
+# 2095 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head.next: 
+            return None
+        
+        n = 0
+        org_head = head 
+        while head: 
+            n += 1
+            head = head.next
+        
+        head = org_head
+        prev = None
+        pr = 0 
+        while pr < n // 2: 
+
+            if pr == (n//2 - 1): 
+                prev = head
+
+            head = head.next
+            pr += 1
+
+        prev.next = head.next 
+
+        return org_head
+    
+class Solution:
+    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head.next: 
+            return None
+        
+        slow = head
+        fast = head
+        prev = None
+
+        while fast and fast.next: 
+            fast = fast.next.next
+            prev = slow 
+            slow = slow.next 
+
+        prev.next = slow.next
+        return head  
