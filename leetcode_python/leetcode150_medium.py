@@ -1284,3 +1284,26 @@ class Solution:
         
         return dfs(root, root.val)
 
+# 437 
+from collections import defaultdict
+
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        prefix_sum_count = defaultdict(int)
+        prefix_sum_count[0] = 1 
+
+        def dfs(node, curr_sum): 
+            if not node: 
+                return 0 
+            
+            curr_sum += node.val
+            count = prefix_sum_count[curr_sum - targetSum]
+
+            prefix_sum_count[curr_sum] += 1
+            count += dfs(node.left, curr_sum)
+            count += dfs(node.right, curr_sum) 
+            prefix_sum_count[curr_sum] -= 1
+
+            return count
+        
+        return dfs(root, 0)
