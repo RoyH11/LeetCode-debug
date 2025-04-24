@@ -1237,3 +1237,51 @@ class Solution:
             second = second.next 
 
         return max_sum
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import deque
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        count = 0
+        max_val = root.val
+
+        def dfs(node, local_max):
+            if not node: 
+                return 
+            
+            if node.val >= local_max: 
+                nonlocal count 
+                count += 1
+                local_max = node.val
+            
+            dfs(node.left, local_max)
+            dfs(node.right, local_max)
+        
+        dfs(root, max_val)
+
+        return count
+    
+from collections import deque
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        def dfs(node, max_val): 
+            if not node: 
+                return 0
+            
+            good = 1 if node.val >= max_val else 0
+            max_val = max(max_val, node.val)
+
+            left = dfs(node.left, max_val)
+            right = dfs(node.right, max_val)
+
+            return good + left + right
+        
+        return dfs(root, root.val)
+
+
+        
