@@ -1307,3 +1307,46 @@ class Solution:
             return count
         
         return dfs(root, 0)
+    
+# 1372 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+        def dfs(node, dir, count): 
+            if not node: 
+                return 0
+                       
+            left = dfs(node.left, 'L', 1 if dir == 'L' else count + 1)
+            right = dfs(node.right, 'R', count + 1 if dir == 'L' else 1)
+            
+            return max(count, left, right)
+        
+        return dfs(root, None, 0)
+    
+class Solution:
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+        self.max_len = 0
+
+        def dfs(node, dir, length): 
+            if not node: 
+                return 
+            
+            self.max_len = max(self.max_len, length)
+
+            if dir == 'L': 
+                dfs(node.left, 'L', 1)
+                dfs(node.right, 'R', length + 1)
+            else: 
+                dfs(node.left, 'L', length + 1)
+                dfs(node.right, 'R', 1)
+            
+            return 
+        
+        dfs(root, None, 0)
+
+        return self.max_len
