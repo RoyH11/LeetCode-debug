@@ -1350,3 +1350,39 @@ class Solution:
         dfs(root, None, 0)
 
         return self.max_len
+    
+# 236 
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        self.result = None
+        def dfs(node, p, q): 
+            if not node: 
+                return False
+            
+            curr = False
+            if node.val == p.val or node.val == q.val: 
+                curr = True
+            
+            left = dfs(node.left, p, q)
+            right = dfs(node.right, p, q)
+
+            if (left and right) or (curr and (left or right)): 
+                self.result = node
+
+            return left or right or curr
+        
+        dfs(root, p, q)
+        return self.result
+    
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root or root == p or root == q: 
+            return root 
+        
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+
+        if left and right: 
+            return root
+        
+        return left if left else right
