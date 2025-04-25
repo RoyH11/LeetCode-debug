@@ -1416,3 +1416,27 @@ class Solution:
             next_level = []
 
         return result
+    
+# 1161
+class Solution:
+    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
+        sums = []
+
+        current_level = [root]
+        next_level = []
+
+        while current_level: 
+            level_sum = 0
+            for node in current_level: 
+                level_sum += node.val
+                if node.left: 
+                    next_level.append(node.left)
+                if node.right: 
+                    next_level.append(node.right)
+                
+            sums.append(level_sum)
+            current_level = next_level
+            next_level = []
+
+        return sums.index(max(sums)) + 1
+            
