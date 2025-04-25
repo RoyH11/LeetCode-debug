@@ -1386,3 +1386,33 @@ class Solution:
             return root
         
         return left if left else right
+    
+# 199
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import deque
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root: 
+            return []
+        
+        curr_level = [root]
+        next_level = []
+        result = []
+        while curr_level: 
+            right_most = curr_level[0]
+            result.append(right_most.val)
+            for node in curr_level: 
+                if node.right: 
+                    next_level.append(node.right)
+                if node.left: 
+                    next_level.append(node.left)
+            
+            curr_level = next_level
+            next_level = []
+
+        return result
