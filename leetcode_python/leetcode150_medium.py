@@ -1512,3 +1512,55 @@ class Solution:
                     stack.append(key)
 
         return len(unlocked) == len(rooms)
+
+# 547 
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        if len(isConnected) == 1: 
+            return 1
+
+        visited = set()
+        stack = []
+        provinces = 0
+
+        def dfs(visited, matrix, stack): 
+            while stack: 
+                city = stack.pop()
+                for index, value in enumerate(matrix[city]): 
+                    if (value == 1) and (index not in visited): 
+                        visited.add(index)
+                        stack.append(index)
+
+        while len(visited) != len(isConnected): 
+            # add the lowest index who is not in the visited set to the stack 
+            for idx in range(len(isConnected)): 
+                if idx not in visited: 
+                    stack.append(idx)
+                    break
+            
+            dfs(visited, isConnected, stack)
+            provinces += 1
+
+        return provinces
+
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        visited = set()
+        provinces = 0
+
+        def dfs(city): 
+            stack = [city]
+            while stack: 
+                curr = stack.pop()
+                for neighbor, is_connected in enumerate(isConnected[curr]): 
+                    if (is_connected == 1) and (neighbor not in visited): 
+                        visited.add(neighbor)
+                        stack.append(neighbor)
+
+        for i in range(len(isConnected)): 
+            if i not in visited: 
+                visited.add(i)
+                dfs(i)
+                provinces += 1
+        
+        return provinces
