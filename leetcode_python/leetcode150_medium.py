@@ -1564,3 +1564,71 @@ class Solution:
                 provinces += 1
         
         return provinces
+
+# 1466 
+from collections import defaultdict
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        graph = defaultdict(list)
+
+        for a, b in connections: 
+            graph[a].append((b, 1))
+            graph[b].append((a, 0))
+
+        def dfs(node, parent): 
+            for neighbor, needs_reversal in graph[node]: 
+                if neighbor == parent: 
+                    continue
+                res[0] += needs_reversal
+                dfs(neighbor, node)
+
+        res = [0]
+        dfs(0, -1)
+        return res[0]
+    
+from collections import defaultdict
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        graph = defaultdict(list)
+
+        for a, b in connections: 
+            graph[a].append((b, 1))
+            graph[b].append((a, 0))
+
+        res = 0
+
+        def dfs(node, parent): 
+            nonlocal res
+            for neighbor, needs_reversal in graph[node]: 
+                if neighbor == parent: 
+                    continue
+                res += needs_reversal
+                dfs(neighbor, node)
+
+        dfs(0, -1)
+        return res
+    
+from collections import defaultdict, deque
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        graph = defaultdict(list)
+
+        for a, b in connections: 
+            graph[a].append((b, 1))
+            graph[b].append((a, 0))
+
+        res = 0
+        visited = set()
+        queue = deque([0])
+
+        while queue: 
+            node = queue.popleft()
+            visited.add(node)
+
+            for neighbor, needs_reversal in graph[node]: 
+                if neighbor in visited: 
+                    continue
+                res += needs_reversal
+                queue.append(neighbor)
+
+        return res
