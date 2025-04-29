@@ -1472,3 +1472,43 @@ class Solution:
         while node.left: 
             node = node.left
         return node
+
+# 841 
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        keys = set(rooms[0])
+        unvisited = set(range(1, len(rooms)))
+
+        # only keep the useful keys
+        keys &= unvisited
+
+        while keys: 
+            # remove the rooms 
+            unvisited -= keys
+
+            new_keys = []
+
+            for key in keys: 
+                n_k = rooms[key]
+                for k in n_k: 
+                    new_keys.append(k)
+
+            new_keys = set(new_keys)
+            new_keys &= unvisited
+            keys = new_keys
+
+        return True if not unvisited else False
+
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        unlocked = set([0])
+        stack = [0]
+
+        while stack: 
+            room = stack.pop()
+            for key in rooms[room]: 
+                if key not in unlocked: 
+                    unlocked.add(key)
+                    stack.append(key)
+
+        return len(unlocked) == len(rooms)
