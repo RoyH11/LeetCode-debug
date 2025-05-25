@@ -262,4 +262,46 @@ class Solution(object):
                 unique.add(value)
         return True
     
+from typing import List
+
+# 399
+from collections import defaultdict
+
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        graph = defaultdict(list)
+
+        # build graph
+        for (a, b), val in zip(equations, values): 
+            graph[a].append((b, val))
+            graph[b].append((a, 1/val))
+
+        # dfs
+        def dfs(start, end, visited): 
+            if start == end: 
+                return 1.0
+            
+            visited.add(start)
+
+            for neighbor, value in graph[start]: 
+                if neighbor in visited:
+                    continue
+                
+                res = dfs(neighbor, end, visited)
+                if res != -1.0: 
+                    return res * value
+            
+            return -1.0
+
+        # now construct results 
+        results = []
+        for a, b in queries: 
+            if a not in graph or b not in graph: 
+                results.append(-1.0)
+            elif a == b: 
+                results.append(1.0)
+            else: 
+                results.append(dfs(a, b, set()))
+        return results 
+
 
