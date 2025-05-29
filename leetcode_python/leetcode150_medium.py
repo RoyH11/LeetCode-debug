@@ -1735,3 +1735,21 @@ class Solution:
                     queue.append((nr, nc, steps + 1))
 
         return steps if fresh == 0 else -1
+    
+# 215
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        sorted_num = sorted(nums)
+        return sorted_num[-k]
+    
+import heapq
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        min_heap = nums[:k]
+        heapq.heapify(min_heap)
+
+        for num in nums[k:]: 
+            if num > min_heap[0]: 
+                heapq.heappushpop(min_heap, num)
+
+        return min_heap[0]
