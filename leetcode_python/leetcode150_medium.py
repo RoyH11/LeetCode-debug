@@ -1784,3 +1784,26 @@ class SmallestInfiniteSet:
 # obj = SmallestInfiniteSet()
 # param_1 = obj.popSmallest()
 # obj.addBack(num)
+
+# 2542 
+import heapq
+class Solution:
+    def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        # pair and sort by nums2 in descending order
+        pairs = sorted(zip(nums2, nums1), reverse=True)
+
+        min_heap = []
+        total_sum = 0
+        max_score = 0
+
+        for n2, n1 in pairs:
+            heapq.heappush(min_heap, n1)
+            total_sum += n1 
+
+            if len(min_heap) > k: 
+                total_sum -= heapq.heappop(min_heap)
+
+            if len(min_heap) == k: 
+                max_score = max(max_score, total_sum * n2)
+
+        return max_score
