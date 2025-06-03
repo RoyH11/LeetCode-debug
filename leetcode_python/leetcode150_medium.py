@@ -1807,3 +1807,95 @@ class Solution:
                 max_score = max(max_score, total_sum * n2)
 
         return max_score
+    
+# 2462
+from collections import deque
+import heapq
+class Solution:
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        n = len(costs) 
+        total = 0
+
+        dq = deque(costs)
+
+        left_heap = []
+        right_heap = []
+
+        for _ in range(candidates): 
+            if dq: 
+                heapq.heappush(left_heap, dq.popleft())
+            if dq: 
+                heapq.heappush(right_heap, dq.pop())
+
+        for _ in range(k):
+            if left_heap and right_heap: 
+                if left_heap[0] <= right_heap[0]: 
+                    total += heapq.heappop(left_heap)
+                    if dq: 
+                        heapq.heappush(left_heap, dq.popleft())
+
+                else: 
+                    total += heapq.heappop(right_heap)
+                    if dq: 
+                        heapq.heappush(right_heap, dq.pop())
+            
+            elif left_heap: 
+                total += heapq.heappop(left_heap)
+                if dq: 
+                    heapq.heappush(left_heap, dq.popleft())
+
+            else: 
+                total += heapq.heappop(right_heap)
+                if dq: 
+                    heapq.heappush(right_heap, dq.pop())
+
+        return total
+    
+from collections import deque
+import heapq
+class Solution:
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        n = len(costs) 
+        total = 0
+
+        left = 0
+        right = n-1
+
+        left_heap = []
+        right_heap = []
+
+        for _ in range(candidates): 
+            if left <= right: 
+                heapq.heappush(left_heap, costs[left])
+                left += 1
+            if left <= right: 
+                heapq.heappush(right_heap, costs[right])
+                right -= 1
+
+        for _ in range(k):
+            if left_heap and right_heap: 
+                if left_heap[0] <= right_heap[0]: 
+                    total += heapq.heappop(left_heap)
+                    if left <= right: 
+                        heapq.heappush(left_heap, costs[left])
+                        left += 1
+
+                else: 
+                    total += heapq.heappop(right_heap)
+                    if left <= right: 
+                        heapq.heappush(right_heap, costs[right])
+                        right -= 1
+            
+            elif left_heap: 
+                total += heapq.heappop(left_heap)
+                if left <= right: 
+                    heapq.heappush(left_heap, costs[left])
+                    left += 1
+
+            else: 
+                total += heapq.heappop(right_heap)
+                if left <= right: 
+                    heapq.heappush(right_heap, costs[right])
+                    right -= 1
+
+        return total
