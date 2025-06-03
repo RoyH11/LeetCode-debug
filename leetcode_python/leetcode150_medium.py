@@ -1899,3 +1899,49 @@ class Solution:
                     right -= 1
 
         return total
+
+# 2300
+import math
+class Solution:
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        potions.sort()
+        m = len(potions)
+        results = []
+
+        for spell in spells: 
+            min_potion = math.ceil(success/spell)
+
+            left = 0
+            right = m - 1
+            result = -1
+
+            while left <= right: 
+                mid = (left + right)//2
+
+                if potions[mid] >= min_potion: 
+                    result = mid
+                    right = mid -1 
+                else: 
+                    left = mid + 1
+
+            if result != -1: 
+                results.append(m - result)
+            else: 
+                results.append(0)
+
+        return results
+
+import bisect
+import math
+class Solution:
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        potions.sort()
+        m = len(potions)
+        results = []
+
+        for spell in spells: 
+            min_potion = math.ceil(success/spell)
+            idx = bisect.bisect_left(potions, min_potion)
+            results.append(m - idx)
+
+        return results
