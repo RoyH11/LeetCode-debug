@@ -1977,3 +1977,48 @@ class Solution:
                 left = mid + 1
 
         return left 
+
+# 875 
+import math
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        left = 1
+        right = max(piles)
+        result = right
+
+        while left <= right: 
+            mid = (left + right) // 2
+            t = 0 
+            for pile in piles: 
+                t += math.ceil(pile / mid)
+
+            if t <= h: 
+                # should eat slower
+                result = mid 
+                right = mid - 1
+            else: 
+                # should eat faster
+                left = mid + 1
+
+        return result 
+    
+import math
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        left = 1
+        right = max(piles)
+        result = right
+
+        while left <= right: 
+            mid = (left + right) // 2
+            t = sum(math.ceil(pile / mid) for pile in piles)
+
+            if t <= h: 
+                # should eat slower
+                result = mid 
+                right = mid - 1
+            else: 
+                # should eat faster
+                left = mid + 1
+
+        return result 
