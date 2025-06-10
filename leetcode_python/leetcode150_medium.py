@@ -2086,3 +2086,45 @@ class Solution:
         
         return prev1
     
+# 216 
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        res = []
+
+        def backtrack(start, path, k, target): 
+            if k == 0 and target == 0: 
+                res.append(list(path))
+                return 
+            if k == 0 or target < 0: 
+                return 
+            
+            for num in range(start, 10): 
+                if num > target: 
+                    break
+                path.append(num)
+                backtrack(num + 1, path, k - 1, target - num)
+                path.pop()
+
+        backtrack(1, [], k, n)
+        return res
+    
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        res = []
+
+        def backtrack(start, path, k, target): 
+            if k == 0 and target == 0: 
+                res.append(list(path))
+                return 
+            if k == 0: 
+                return 
+            
+            for num in range(start, 10): 
+                if num > target: 
+                    break
+                path.append(num)
+                backtrack(num + 1, path, k - 1, target - num)
+                path.pop()
+
+        backtrack(1, [], k, n)
+        return res
