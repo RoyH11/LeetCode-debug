@@ -2228,3 +2228,13 @@ class Solution:
             prev, curr = curr, [0] * (len(text2) + 1)
         
         return prev[-1]
+    
+#714
+class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
+        cash = 0
+        hold = -prices[0]
+        for price in prices[1:]:
+            cash = max(cash, hold + price - fee)
+            hold = max(hold, cash - price)
+        return cash
