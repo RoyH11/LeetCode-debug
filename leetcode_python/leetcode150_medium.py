@@ -2309,3 +2309,21 @@ class Solution:
             prev, curr = curr, prev
 
         return prev[-1]
+
+# 1318
+class Solution:
+    def minFlips(self, a: int, b: int, c: int) -> int:
+        flips = 0 
+
+        for i in range(32): 
+            abit = (a >> i) & 1
+            bbit = (b >> i) & 1
+            cbit = (c >> i) & 1
+
+            if (abit | bbit) != cbit: 
+                if cbit == 1: 
+                    flips += 1
+                else: 
+                    flips += abit + bbit
+
+        return flips
