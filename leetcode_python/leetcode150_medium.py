@@ -2488,3 +2488,42 @@ class Solution:
 
         return result
     
+# 1268 Trie
+class TrieNode: 
+    def __init__(self): 
+        self.children = {}
+        self.suggestions = []
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        node = self.root
+        for ch in word: 
+            if ch not in node.children: 
+                node.children[ch] = TrieNode()
+            node = node.children[ch]
+            if len(node.suggestions) < 3: 
+                node.suggestions.append(word)
+    
+    def get_suggestions(self, search_word) -> List[List[str]]:
+        node = self.root
+        result = []
+        for ch in search_word: 
+            if ch in node.children: 
+                node = node.children[ch]
+                result.append(node.suggestions)
+            else: 
+                while len(result) < len(search_word): 
+                    result.append([])
+                break
+        return result
+
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        products.sort()
+        trie = Trie()
+        for product in products: 
+            trie.insert(product)
+        return trie.get_suggestions(searchWord)
