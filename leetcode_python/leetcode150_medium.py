@@ -2465,3 +2465,26 @@ class Solution:
 
         return result
 
+# 1268 binary search
+import bisect
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        products.sort()
+        result = []
+        prefix = ''
+
+        for ch in searchWord: 
+            prefix += ch
+            matches = []
+            i = bisect.bisect_left(products, prefix)
+
+            for j in range(i, min(i+3, len(products))): 
+                if products[j].startswith(prefix): 
+                    matches.append(products[j])
+                else: 
+                    break
+
+            result.append(matches)
+
+        return result
+    
