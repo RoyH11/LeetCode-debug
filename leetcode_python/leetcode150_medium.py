@@ -2445,3 +2445,23 @@ class Trie:
 
     def startsWith(self, prefix: str) -> bool:
         return self._find(prefix) is not None
+    
+# 1268 brute force
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        products.sort()
+        result = []
+        prefix = ''
+
+        for ch in searchWord: 
+            prefix += ch
+            matches = []
+            for product in products: 
+                if product.startswith(prefix): 
+                    matches.append(product)
+                if len(matches) == 3: 
+                    break
+            result.append(matches)
+
+        return result
+
