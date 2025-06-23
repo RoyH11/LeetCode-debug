@@ -2527,3 +2527,20 @@ class Solution:
         for product in products: 
             trie.insert(product)
         return trie.get_suggestions(searchWord)
+    
+# 435 
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key=lambda x: x[0])
+        count = 0
+        prev = 0
+        for curr in range(1, len(intervals)): 
+            if intervals[prev][1] <= intervals[curr][0]: 
+                prev = curr
+            elif intervals[prev][1] >= intervals[curr][1]: 
+                prev = curr
+                count += 1
+            else: 
+                count += 1
+        return count
+
