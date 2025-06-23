@@ -2544,3 +2544,18 @@ class Solution:
                 count += 1
         return count
 
+# 435 refactor pythonic
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key=lambda x: x[0])
+        count = 0
+        prev_end = float('-inf')
+        for start, end in intervals:
+            if prev_end <= start: 
+                prev_end = end
+            elif prev_end >= end: 
+                prev_end = end
+                count += 1
+            else: 
+                count += 1
+        return count
