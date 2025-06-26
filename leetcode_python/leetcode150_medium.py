@@ -2613,3 +2613,26 @@ class Solution:
             stack.append(curr_day)
 
         return answer
+    
+# 901
+class StockSpanner:
+
+    def __init__(self):
+        self.stack = []
+        self.price = []
+
+    def next(self, price: int) -> int:
+        while self.stack and price >= self.price[self.stack[-1]]: 
+            self.stack.pop()
+        self.stack.append(len(self.price))
+        self.price.append(price)
+        if len(self.stack) == 1: 
+            return self.stack[-1] + 1
+        else: 
+            return self.stack[-1] - self.stack[-2]
+
+
+
+# Your StockSpanner object will be instantiated and called as such:
+# obj = StockSpanner()
+# param_1 = obj.next(price)
