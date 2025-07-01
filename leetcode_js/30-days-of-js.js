@@ -7,9 +7,9 @@ const { create } = require("lodash");
  */
 var createHelloWorld = function() {
     
-    return function(...args) {
-        return "Hello World"
-    }
+  return function(...args) {
+    return "Hello World"
+  }
 };
 
 /**
@@ -24,10 +24,10 @@ var createHelloWorld = function() {
  */
 var createCounter = function(n) {
     
-    return function() {
-        n = n + 1;
-        return n - 1; 
-    };
+  return function() {
+    n = n + 1;
+    return n - 1; 
+  };
 };
 
 const counter = createCounter(5); 
@@ -50,20 +50,20 @@ console.log(counter()); // 7
  * @return {Object}
  */
 var expect = function(val) {
-    return {
-        toBe: function(expected) {
-            if (val !== expected) {
-                throw new Error("Not Equal"); 
-            }
-            return true;
-        }, 
-        notToBe: function(expected) {
-            if (val === expected) {
-                throw new Error("Equal");
-            }
-            return true;
-        }
-    };
+  return {
+    toBe: function(expected) {
+      if (val !== expected) {
+        throw new Error("Not Equal"); 
+      }
+      return true;
+    }, 
+    notToBe: function(expected) {
+      if (val === expected) {
+        throw new Error("Equal");
+      }
+      return true;
+    }
+  };
 };
 
 /**
@@ -77,18 +77,18 @@ var expect = function(val) {
  */
 var expect = (val) => ({
     
-    toBe: (expected) => {
-        if (val !== expected) {
-            throw new Error("Not Equal"); 
-        }
-        return true;
-    }, 
-    notToBe: (expected) => {
-        if (val === expected) {
-            throw new Error("Equal");
-        }
-        return true;
+  toBe: (expected) => {
+    if (val !== expected) {
+      throw new Error("Not Equal"); 
     }
+    return true;
+  }, 
+  notToBe: (expected) => {
+    if (val === expected) {
+      throw new Error("Equal");
+    }
+    return true;
+  }
 
 });
 
@@ -98,22 +98,22 @@ var expect = (val) => ({
  * @return { increment: Function, decrement: Function, reset: Function }
  */
 var createCounter = function(init) {
-    let count = init;
+  let count = init;
 
-    return {
-        increment: () => {
-            count += 1;
-            return count;
-        }, 
-        decrement: () => {
-            count -= 1;
-            return count;
-        },
-        reset: () => {
-            count = init;
-            return count;
-        }
-    };
+  return {
+    increment: () => {
+      count += 1;
+      return count;
+    }, 
+    decrement: () => {
+      count -= 1;
+      return count;
+    },
+    reset: () => {
+      count = init;
+      return count;
+    }
+  };
 };
 
 /**
@@ -130,13 +130,13 @@ var createCounter = function(init) {
  * @return {number[]}
  */
 var map = function(arr, fn) {
-    const result = [];
+  const result = [];
 
-    for (let i = 0; i < arr.length; i++) {
-        result.push(fn(arr[i], i));
-    }
+  for (let i = 0; i < arr.length; i++) {
+    result.push(fn(arr[i], i));
+  }
 
-    return result;
+  return result;
 };
 
 // 2634
@@ -146,11 +146,25 @@ var map = function(arr, fn) {
  * @return {number[]}
  */
 var filter = function(arr, fn) {
-    result = [];
-    for (let i = 0; i < arr.length; i++) {
-        if (fn(arr[i], i)) {
-            result.push(arr[i]);
-        }
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (fn(arr[i], i)) {
+      result.push(arr[i]);
     }
-    return result;
+  }
+  return result;
+};
+
+// 2626
+/**
+ * @param {number[]} nums
+ * @param {Function} fn
+ * @param {number} init
+ * @return {number}
+ */
+var reduce = function(nums, fn, init) {
+  for (let i = 0; i < nums.length; i++ ) {
+    init = fn(init, nums[i], i);
+  }
+  return init;
 };
