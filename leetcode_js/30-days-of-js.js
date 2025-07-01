@@ -219,17 +219,17 @@ var argumentsLength = (...args) => args.length;
  * @return {Function}
  */
 var once = function(fn) {
-    let called = false;
-    let result;
+  let called = false;
+  let result;
 
-    return function(...args){
-        if (!called) {
-            called = true;
-            result = fn(...args);
-            return result;
-        }
-        return undefined; // Return undefined if fn has already been called
+  return function(...args){
+    if (!called) {
+      called = true;
+      result = fn(...args);
+      return result;
     }
+    return undefined; // Return undefined if fn has already been called
+  }
 };
 
 /**
@@ -239,3 +239,22 @@ var once = function(fn) {
  * onceFn(1,2,3); // 6
  * onceFn(2,3,6); // returns undefined without calling fn
  */
+
+// 2666 arrow
+/**
+ * @param {Function} fn
+ * @return {Function}
+ */
+var once = (fn) => {
+  let called = false;
+  let result;
+
+  return (...args) => {
+    if (!called) {
+      called = true;
+      result = fn(...args);
+      return result;
+    }
+    return undefined; // Return undefined if fn has already been called
+  };
+}
