@@ -176,16 +176,16 @@ var reduce = function(nums, fn, init) {
  */
 var compose = function(functions) {
     
-    return function(x) {
-        if (functions.length === 0) {
-            return x;
-        }
-        let result = x; 
-        for (let i = functions.length - 1; i >=0; i--) {
-            result = functions[i](result);
-        }
-        return result;
+  return function(x) {
+    if (functions.length === 0) {
+      return x;
     }
+    let result = x; 
+    for (let i = functions.length - 1; i >=0; i--) {
+      result = functions[i](result);
+    }
+    return result;
+  }
 };
 
 /**
@@ -199,7 +199,7 @@ var compose = function(functions) {
  * @return {number}
  */
 var argumentsLength = function(...args) {
-    return args.length;
+  return args.length;
 };
 
 /**
@@ -212,3 +212,30 @@ var argumentsLength = function(...args) {
  * @return {number}
  */
 var argumentsLength = (...args) => args.length;
+
+// 2666
+/**
+ * @param {Function} fn
+ * @return {Function}
+ */
+var once = function(fn) {
+    let called = false;
+    let result;
+
+    return function(...args){
+        if (!called) {
+            called = true;
+            result = fn(...args);
+            return result;
+        }
+        return undefined; // Return undefined if fn has already been called
+    }
+};
+
+/**
+ * let fn = (a,b,c) => (a + b + c)
+ * let onceFn = once(fn)
+ *
+ * onceFn(1,2,3); // 6
+ * onceFn(2,3,6); // returns undefined without calling fn
+ */
