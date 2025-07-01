@@ -205,3 +205,10 @@ var argumentsLength = function(...args) {
 /**
  * argumentsLength(1, 2, 3); // 3
  */
+
+//2703 arrow 
+/**
+ * @param {...(null|boolean|number|string|Array|Object)} args
+ * @return {number}
+ */
+var argumentsLength = (...args) => args.length;
