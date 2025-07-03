@@ -32,9 +32,9 @@ var createCounter = function(n) {
 
 const counter = createCounter(5); 
 
-console.log(counter()); // 5
-console.log(counter()); // 6
-console.log(counter()); // 7
+// console.log(counter()); // 5
+// console.log(counter()); // 6
+// console.log(counter()); // 7
 
 
 /** 
@@ -318,3 +318,61 @@ var addTwoPromises = async function(promise1, promise2) {
   return Promise.all([promise1, promise2])
     .then(([value1, value2]) => value1 + value2)
 };
+
+// 2621
+/**
+ * @param {number} millis
+ * @return {Promise}
+ */
+async function sleep(millis) {
+  return new Promise(resolve => {
+    setTimeout(resolve, millis);
+  })
+}
+
+/** 
+ * let t = Date.now()
+ * sleep(100).then(() => console.log(Date.now() - t)) // 100
+ */
+
+// 2715
+/**
+ * @param {Function} fn
+ * @param {Array} args
+ * @param {number} t
+ * @return {Function}
+ */
+var cancellable = function(fn, args, t) {
+  const timeoutId = setTimeout(() => {
+    fn(...args);
+  }, t);
+
+  const cancelFn = () => {
+    clearTimeout(timeoutId);
+  };
+  return cancelFn;
+};
+
+// const result = [];
+
+// const fn = (x) => x * 5;
+// const args = [2], t = 20, cancelTimeMs = 50;
+
+// const start = performance.now();
+
+// const log = (...argsArr) => {
+//   const diff = Math.floor(performance.now() - start);
+//   result.push({"time": diff, "returned": fn(...argsArr)});
+// }
+     
+// const cancel = cancellable(log, args, t);
+
+// const maxT = Math.max(t, cancelTimeMs);
+
+// setTimeout(cancel, cancelTimeMs);
+
+// setTimeout(() => {
+//   console.log(result); // [{"time":20,"returned":10}]
+// }, maxT + 15)
+
+// console.log("Cancellable function created, waiting for execution...");
