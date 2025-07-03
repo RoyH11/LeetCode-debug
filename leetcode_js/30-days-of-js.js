@@ -431,3 +431,17 @@ var cancellable = function(fn, args, t) {
 var isEmpty = function(obj) {
   return Object.keys(obj).length === 0;
 };
+
+// 2677
+/**
+ * @param {Array} arr
+ * @param {number} size
+ * @return {Array}
+ */
+var chunk = function(arr, size) {
+  const result = [];
+  for (let i = 0; i < arr.length; i += size) {
+    result.push(arr.slice(i, i + size));
+  }
+  return result;
+};
