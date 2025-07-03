@@ -422,3 +422,12 @@ var cancellable = function(fn, args, t) {
  *                           // ]
  *  }, cancelTimeMs + t + 15)    
  */
+
+// 2727
+/**
+ * @param {Object|Array} obj
+ * @return {boolean}
+ */
+var isEmpty = function(obj) {
+  return Object.keys(obj).length === 0;
+};
