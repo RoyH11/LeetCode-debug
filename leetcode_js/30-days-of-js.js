@@ -461,3 +461,13 @@ Array.prototype.last = function() {
  * const arr = [1, 2, 3];
  * arr.last(); // 3
  */
+
+// 2724
+/**
+ * @param {Array} arr
+ * @param {Function} fn
+ * @return {Array}
+ */
+var sortBy = function(arr, fn) {
+  return arr.slice().sort((a, b) => fn(a) - fn(b));
+};
