@@ -643,7 +643,34 @@ var timeLimit = function(fn, t) {
   }
 };
 
+
+const limited = timeLimit((t) => new Promise(res => setTimeout(() => res('Done'), t)), 100);
+// limited(150)
+//   .then(console.log)
+//   .catch(console.log) // "Time Limit Exceeded" at t=100ms
+
+// limited(50)
+//   .then(console.log) // undefined at t=50ms
+//   .catch(console.log);
+
+// 2631
 /**
- * const limited = timeLimit((t) => new Promise(res => setTimeout(res, t)), 100);
- * limited(150).catch(console.log) // "Time Limit Exceeded" at t=100ms
+ * @param {Function} fn
+ * @return {Object}
+ */
+Array.prototype.groupBy = function(fn) {
+  const result = {}; 
+
+  for (let i = 0; i < this.length; i++) {
+    const key = fn(this[i]);
+    if (!result[key]) {
+      result[key] = [];
+    }
+    result[key].push(this[i]);
+  }
+  return result;
+};
+
+/**
+ * [1,2,3].groupBy(String) // {"1":[1],"2":[2],"3":[3]}
  */
