@@ -674,3 +674,61 @@ Array.prototype.groupBy = function(fn) {
 /**
  * [1,2,3].groupBy(String) // {"1":[1],"2":[2],"3":[3]}
  */
+
+
+// 2622
+var TimeLimitedCache = function() {
+  this.store = new Map(); 
+};
+
+/** 
+ * @param {number} key
+ * @param {number} value
+ * @param {number} duration time until expiration in ms
+ * @return {boolean} if un-expired key already existed
+ */
+TimeLimitedCache.prototype.set = function(key, value, duration) {
+  const existing = this.store.get(key);
+
+  // clear previous timeout if key already exists
+  if (existing) {
+    clearTimeout(existing.timeoutId);
+  }
+
+  const timeoutId = setTimeout(() => {
+    this.store.delete(key); // remove key after duration
+  }, duration);
+
+  this.store.set(key, {
+    value: value,
+    timeoutId: timeoutId
+  })
+
+  return existing !== undefined; // return true if key already existed
+};
+
+/** 
+ * @param {number} key
+ * @return {number} value associated with key
+ */
+TimeLimitedCache.prototype.get = function(key) {
+  const entry = this.store.get(key);
+  if (!entry) {
+    return -1; // return -1 if key does not exist or has expired
+  }
+  return entry.value; // return the value if key exists and has not expired
+};
+
+/** 
+ * @return {number} count of non-expired keys
+ */
+TimeLimitedCache.prototype.count = function() {
+  return this.store.size; // return the size of the store which contains non-expired keys
+};
+
+/**
+ * const timeLimitedCache = new TimeLimitedCache()
+ * timeLimitedCache.set(1, 42, 1000); // false
+ * timeLimitedCache.get(1) // 42
+ * timeLimitedCache.count() // 1
+ */
