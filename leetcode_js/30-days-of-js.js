@@ -760,3 +760,33 @@ var debounce = function(fn, t) {
  * log('Hello'); // cancelled
  * log('Hello'); // Logged at t=100ms
  */
+
+// 2722 
+/**
+ * @param {Array} arr1
+ * @param {Array} arr2
+ * @return {Array}
+ */
+var join = function(arr1, arr2) {
+  const result = [];
+  const arr1Copy = arr1.slice();
+  const arr2Copy = arr2.slice();
+  // Sort both arrays by id
+  arr1Copy.sort((a, b) => a.id - b.id);
+  arr2Copy.sort((a, b) => a.id - b.id);
+
+  while (arr1Copy.length > 0 && arr2Copy.length > 0) {
+    //compare id 
+    if (arr1Copy[0].id < arr2Copy[0].id) {
+      result.push(arr1Copy.shift());
+    } else if (arr1Copy[0].id > arr2Copy[0].id) {
+      result.push(arr2Copy.shift());
+    } else {
+      // if ids are equal, merge the objects
+      const merged = { ...arr1Copy.shift(), ...arr2Copy.shift() };
+      result.push(merged);
+    }
+  }
+
+  return result.concat(arr1Copy, arr2Copy); // append remaining elements
+};
