@@ -790,3 +790,29 @@ var join = function(arr1, arr2) {
 
   return result.concat(arr1Copy, arr2Copy); // append remaining elements
 };
+
+
+// 2722 better solution
+/**
+ * @param {Array} arr1
+ * @param {Array} arr2
+ * @return {Array}
+ */
+var join = function(arr1, arr2) {
+  const map = new Map();
+
+  for (const obj of arr1) {
+    map.set(obj.id, obj);
+  }
+
+  for (const obj of arr2) {
+    if (map.has(obj.id)) {
+      const merged = { ...map.get(obj.id), ...obj }; // arr2 overrides arr1
+      map.set(obj.id, merged);
+    } else {
+      map.set(obj.id, obj);
+    }
+  }
+
+  return [...map.values()].sort((a, b) => a.id - b.id); // return sorted array by id
+};
