@@ -1,6 +1,6 @@
 // 2667
 
-const { create, sum } = require("lodash");
+const { create, sum, compact } = require("lodash");
 
 /**
  * @return {Function}
@@ -936,3 +936,30 @@ var promiseAll = function(functions) {
  * const promise = promiseAll([() => new Promise(res => res(42))])
  * promise.then(console.log); // [42]
  */
+
+// 2705 
+/**
+ * @param {Object|Array} obj
+ * @return {Object|Array}
+ */
+var compactObject = function(obj) {
+  if (Array.isArray(obj)) {
+    // for arrays: recursively compact each element, then filter out falsy values
+    return obj
+      .map(compactObject)
+      .filter(value => value)
+  } else if (obj !== null && typeof obj === 'object') {
+    // for objects: recursively compact each value, keep keys with truthy values
+    const result = {};
+    for (const [key, value] of Object.entries(obj)) {
+      const compactedValue = compactObject(value);
+      if (compactedValue) {
+        result[key] = compactedValue; 
+      }
+    }
+    return result;
+  } else{
+    // for primitive values: return as is
+    return obj;
+  }
+};
