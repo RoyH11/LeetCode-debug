@@ -841,3 +841,28 @@ var flat = function (arr, n) {
 
   return result;
 };
+
+// 2625 better solution
+/**
+ * @param {Array} arr
+ * @param {number} depth
+ * @return {Array}
+ */
+var flat = function (arr, n) {
+  if (n === 0) return arr.slice(); // if depth is 0, return a shallow copy of the array
+
+  const result = []; 
+
+  for (const item of arr) {
+    if (Array.isArray(item) && n > 0) {
+      // if item is an array and depth is greater than or equal to 1,
+      // recursively flatten the item with depth reduced by 1
+      result.push(...flat(item, n - 1));
+    } else {
+      // otherwise, push the item directly
+      result.push(item);
+    }
+  }
+
+  return result;
+};
