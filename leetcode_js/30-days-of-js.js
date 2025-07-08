@@ -894,3 +894,45 @@ var flat = function (arr, n) {
   
   return result.reverse(); // reverse to maintain original order
 };
+
+
+// 2721
+/**
+ * @param {Array<Function>} functions
+ * @return {Promise<any>}
+ */
+var promiseAll = function(functions) {
+  return new Promise((resolve, reject) => {
+    const results = []; 
+    let completed = 0;
+
+    if (functions.length === 0) {
+      resolve(results); // resolve immediately if no functions
+      return;
+    }
+
+    functions.forEach((fn, index) => {
+      try {
+        fn()
+          .then((value) => {
+            results[index] = value; // store result at the correct index
+            completed += 1;
+
+            if (completed === functions.length) {
+              resolve(results); // resolve when all promises are completed
+              return;
+            }
+          })
+          .catch(reject); // reject if any promise fails
+      } catch (error) {
+        reject(error); // reject if fn throws an error
+        return;
+      }
+    });
+  });
+};
+
+/**
+ * const promise = promiseAll([() => new Promise(res => res(42))])
+ * promise.then(console.log); // [42]
+ */
