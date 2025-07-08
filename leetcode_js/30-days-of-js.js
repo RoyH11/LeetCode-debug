@@ -866,3 +866,31 @@ var flat = function (arr, n) {
 
   return result;
 };
+
+// 2628 stack 
+/**
+ * @param {Array} arr
+ * @param {number} depth
+ * @return {Array}
+ */
+var flat = function (arr, n) {
+  if (n === 0) return arr.slice(); // shallow copy when no flattening needed
+  
+  const stack = arr.map(item => [item, n]);
+  const result = [];
+  
+  while (stack.length > 0) {
+    const [item, depth] = stack.pop();
+    
+    if (Array.isArray(item) && depth > 0) {
+      // Add items to stack in reverse order to maintain original order
+      for (let i = 0; i < item.length; i++) {
+        stack.push([item[i], depth - 1]);
+      }
+    } else {
+      result.push(item);
+    }
+  }
+  
+  return result.reverse(); // reverse to maintain original order
+};
