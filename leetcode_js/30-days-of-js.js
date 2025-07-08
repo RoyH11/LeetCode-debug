@@ -816,3 +816,28 @@ var join = function(arr1, arr2) {
 
   return [...map.values()].sort((a, b) => a.id - b.id); // return sorted array by id
 };
+
+// 2625
+/**
+ * @param {Array} arr
+ * @param {number} depth
+ * @return {Array}
+ */
+var flat = function (arr, n) {
+  if (n < 1) return arr; // if depth is less than 1, return original array
+
+  const result = []; 
+
+  for (const item of arr) {
+    if (Array.isArray(item) && n >= 1) {
+      // if item is an array and depth is greater than or equal to 1,
+      // recursively flatten the item with depth reduced by 1
+      result.push(...flat(item, n - 1));
+    } else {
+      // otherwise, push the item directly
+      result.push(item);
+    }
+  }
+
+  return result;
+};
