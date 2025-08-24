@@ -2740,3 +2740,33 @@ class Solution:
 
                 # right = top
                 matrix[j][n-1-i] = temp
+
+# 73
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        row_change = set()
+        col_change = set()
+
+        m = len(matrix)
+        n = len(matrix[0])
+
+        # find all 0's
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == 0:
+                    row_change.add(i)
+                    col_change.add(j)
+
+        # now change all
+        for row in row_change:
+            matrix[row] = [0] * n
+
+        for row in matrix:
+            for col in col_change:
+                row[col] = 0
+
+
+        
