@@ -2793,3 +2793,46 @@ class Solution:
         for j in col_change:
             for i in range(m):
                 matrix[i][j] = 0
+
+# 289 
+class Solution:
+    def gameOfLife(self, board: List[List[int]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        m, n = len(board), len(board[0])
+
+        directons = [(-1,-1), (-1,0), (-1,1), (0,-1), (0, 1), (1, -1), (1, 0), (1, 1)]
+
+        for i in range(m):
+            for j in range(n):
+                live_neighbors = 0
+
+                for di, dj in directons:
+                    ni, nj = i+di, j+dj
+                    # check bounds
+                    if 0 <= ni < m and 0 <= nj < n and board[ni][nj] in [1, 3]:
+                        live_neighbors += 1
+
+                # apply logic, 
+                # for live cell, 2 or 3 survives
+                # for dead cell, 3 becomes alive
+                if live_neighbors == 3:
+                    board[i][j] += 2
+
+                if live_neighbors == 2 and board[i][j] == 1:
+                    board[i][j] += 2
+
+        for i in range(m):
+            for j in range(n):
+                # 0 : Dead now, dead in the next generation.
+                # 1: Live now, dead in the next generation.
+                # 2: Dead now, live in the next generation.
+                # 3: Live now, live in the next generation.
+                board[i][j] //= 2
+
+
+                
+        
+
+                
